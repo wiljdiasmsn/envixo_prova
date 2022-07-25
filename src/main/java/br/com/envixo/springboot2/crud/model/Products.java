@@ -32,13 +32,14 @@ public class Products {
 		
 	}
 	
-	public Products(String title, String description, Categories category, Boolean isEnabled, Double price, Double promotionPrice) {
+	public Products(String title, String description, Categories category, Boolean isEnabled, Double price, Double promotionPrice, String tags) {
 		this.title = title;
 		this.description = description;
 		this.category = category;
 		this.isEnabled = isEnabled;
 		this.price = price;
 		this.promotionPrice = promotionPrice;
+		this.tags = tags;
 	}
 	
 	@Id
