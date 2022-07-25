@@ -1,5 +1,7 @@
 package br.com.envixo.springboot2.crud.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,6 +10,9 @@ public class Products {
 
 	private long id;
 	private String title;
+
+	@Lob
+	@Type( type = "org.hibernate.type.TextType")
 	private String description;
 
 	@ManyToOne
@@ -18,6 +23,10 @@ public class Products {
 	private Double price;
 
 	private Double promotionPrice;
+
+
+
+	private String tags;
 
 	public Products() {
 		
@@ -73,12 +82,20 @@ public class Products {
 		this.price = price;
 	}
 
-	@Column(name = "promotion_price", nullable = false)
+	@Column(name = "promotion_price", nullable = true)
 	public Double getPromotionPrice() {
 		return promotionPrice;
 	}
 	public void setPromotionPrice(Double promotionPrice) {
 		this.promotionPrice = promotionPrice;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+	@Column(name = "tags", nullable = true)
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	@Override
@@ -87,10 +104,11 @@ public class Products {
 				"id=" + id +
 				", title='" + title + '\'' +
 				", description='" + description + '\'' +
-				", categories=" + category +
+				", category=" + category +
 				", isEnabled=" + isEnabled +
 				", price=" + price +
 				", promotionPrice=" + promotionPrice +
+				", tags='" + tags + '\'' +
 				'}';
 	}
 }

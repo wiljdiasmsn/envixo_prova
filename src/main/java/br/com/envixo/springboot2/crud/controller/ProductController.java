@@ -10,6 +10,8 @@ import br.com.envixo.springboot2.crud.exception.ResourceNotFoundException;
 import br.com.envixo.springboot2.crud.model.Products;
 import br.com.envixo.springboot2.crud.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,20 @@ public class ProductController {
 		Products products = productsRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Products not found for this id :: " + productId));
 		return ResponseEntity.ok().body(products);
+	}
+
+	@GetMapping("/products/enabled/{enabled}")
+	public List<Products> getProductByEnabled(@PathVariable(value = "enabled") Boolean enabled)
+			throws ResourceNotFoundException {
+
+		return productsRepository.findByEnabled(enabled);
+	}
+
+	@GetMapping("/products/title/{title}")
+	public List<Products> getProductByTitle(@PathVariable(value = "title") String title)
+			throws ResourceNotFoundException {
+
+		return productsRepository.findByTitleContaining(title);
 	}
 
 	@PostMapping("/products")
